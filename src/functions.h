@@ -348,57 +348,59 @@ bool macMulticast(uint8_t* mac) {
 
 /* ===== VENDOR LIST (oui.h) ===== */
 void getRandomMac(uint8_t* mac) {
-    int num = random(sizeof(data_vendors) / 11 - 1);
+//    int num = random(sizeof(data_vendors) / 11 - 1);
     uint8_t i;
 
-    for (i = 0; i < 3; i++) mac[i] = pgm_read_byte_near(data_macs + num * 5 + i);
+ //   for (i = 0; i < 3; i++) mac[i] = pgm_read_byte_near(data_macs + num * 5 + i);
 
-    for (i = 3; i < 6; i++) mac[i] = random(256);
+    //for (i = 3; i < 6; i++) mac[i] = random(256);
+ for (i = 0; i < 6; i++) mac[i] = random(256);
 }
 
 int binSearchVendors(uint8_t* searchBytes, int lowerEnd, int upperEnd) {
-    uint8_t listBytes[3];
-    int     res;
-    int     mid = (lowerEnd + upperEnd) / 2;
+//    uint8_t listBytes[3];
+//    int     res;
+//    int     mid = (lowerEnd + upperEnd) / 2;
 
-    while (lowerEnd <= upperEnd) {
-        listBytes[0] = pgm_read_byte_near(data_macs + mid * 5);
-        listBytes[1] = pgm_read_byte_near(data_macs + mid * 5 + 1);
-        listBytes[2] = pgm_read_byte_near(data_macs + mid * 5 + 2);
+//    while (lowerEnd <= upperEnd) {
+//        listBytes[0] = pgm_read_byte_near(data_macs + mid * 5);
+//        listBytes[1] = pgm_read_byte_near(data_macs + mid * 5 + 1);
+//        listBytes[2] = pgm_read_byte_near(data_macs + mid * 5 + 2);
 
-        res = memcmp(searchBytes, listBytes, 3);
+//        res = memcmp(searchBytes, listBytes, 3);
 
-        if (res == 0) {
-            return mid;
-        } else if (res < 0) {
-            upperEnd = mid - 1;
-            mid      = (lowerEnd + upperEnd) / 2;
-        } else if (res > 0) {
-            lowerEnd = mid + 1;
-            mid      = (lowerEnd + upperEnd) / 2;
-        }
-    }
+ //       if (res == 0) {
+   //         return mid;
+     //   } else if (res < 0) {
+       //     upperEnd = mid - 1;
+         //   mid      = (lowerEnd + upperEnd) / 2;
+       // } else if (res > 0) {
+         //   lowerEnd = mid + 1;
+           // mid      = (lowerEnd + upperEnd) / 2;
+   //     }
+   // }
 
     return -1;
 }
 
 String searchVendor(uint8_t* mac) {
-    String vendorName = String();
-    int    pos        = binSearchVendors(mac, 0, sizeof(data_macs) / 5 - 1);
-    int    realPos    = pgm_read_byte_near(data_macs + pos * 5 + 3) | pgm_read_byte_near(data_macs + pos * 5 + 4) << 8;
+    return "";
+//    String vendorName = String();
+//    int    pos        = binSearchVendors(mac, 0, sizeof(data_macs) / 5 - 1);
+//    int    realPos    = pgm_read_byte_near(data_macs + pos * 5 + 3) | pgm_read_byte_near(data_macs + pos * 5 + 4) << 8;
 
-    if (pos >= 0) {
-        char tmp;
+//    if (pos >= 0) {
+//        char tmp;
 
-        for (int i = 0; i < 8; i++) {
-            tmp = (char)pgm_read_byte_near(data_vendors + realPos * 8 + i);
+//        for (int i = 0; i < 8; i++) {
+//            tmp = (char)pgm_read_byte_near(data_vendors + realPos * 8 + i);
 
-            if (tmp != ENDOFLINE) vendorName += tmp;
-            tmp += SPACE;
-        }
-    }
+ //           if (tmp != ENDOFLINE) vendorName += tmp;
+ //           tmp += SPACE;
+  //      }
+   // }
 
-    return vendorName;
+    //return vendorName;
 }
 
 /* ===== STRING ===== */
